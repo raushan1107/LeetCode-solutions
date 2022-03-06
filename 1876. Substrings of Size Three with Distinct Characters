@@ -1,0 +1,23 @@
+class Solution:
+    def countGoodSubstrings(self, s: str) -> int:
+        wstart=0
+        hashmap=dict()
+        count=0
+        for wend in range(len(s)):
+            cur_char = s[wend]
+            hashmap[cur_char]=hashmap.get(cur_char,0)+1
+            if wend >=2:
+                if len(hashmap)==3:
+                    count+=1
+                    left_char = s[wstart]
+                    hashmap[left_char]-=1
+                    if hashmap[left_char]==0:
+                        del hashmap[left_char]
+                    wstart+=1
+                else:
+                    left_char = s[wstart]
+                    hashmap[left_char]-=1
+                    if hashmap[left_char]==0:
+                        del hashmap[left_char]
+                    wstart+=1
+        return count
